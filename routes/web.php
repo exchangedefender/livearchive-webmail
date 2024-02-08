@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/_', 'App\Http\Controllers\FirstTimeRunController');
+Route::get('/_status', fn() => response("OK"))
+    ->withoutMiddleware([
+        Middleware\ApplyPersistedSettingsMiddleware::class,
+        Middleware\ChangeLayoutMiddleware::class,
+        Middleware\CheckSiteConfiguredMiddleware::class,
+        Middleware\CheckArchiveHealthMiddleware::class,
+    ])
+->name('status');
 
 Route::redirect('/', '/mailbox')->name('home');
 

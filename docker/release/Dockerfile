@@ -39,6 +39,7 @@ RUN cp .env.example .env &&  \
     php /app/artisan key:generate && \
     php /app/artisan config:cache && \
     php /app/artisan event:cache && \
+    php /app/artisan icons:cache && \
     php /app/artisan route:cache && \
     php /app/artisan view:cache
 
