@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -ex
+
+echo "### RUN pre_build START: QEMU and buildx ###"
+
+# docker settings
+#export DOCKER_CLI_EXPERIMENTAL=enabled
+#export DOCKER_BUILDKIT=1
+
+# docker buildx settings
+docker buildx create --use --name multiarchbuilder
+#docker buildx inspect --bootstrap
+docker buildx ls
+
+echo "### RUN pre_build END ###"

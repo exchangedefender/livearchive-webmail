@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    --ibc-fixed-container-height: theme('height.16');
+    --ibc-fixed-container-padding: theme('padding.2');
+    --ibc-fixed-content-max-height: calc(100dvh - (var(--ibc-fixed-container-height) + var(--ibc-fixed-container-padding)))
+}
+
+.app-header {
+    height: var(--ibc-fixed-container-height);
+    padding: var(--ibc-fixed-container-padding);
+}
+.app-root {
+    min-height: var(--ibc-fixed-content-max-height)
+}
+.app-messages {
+    height: var(--ibc-fixed-content-max-height);
+    /*overflow-y: auto;*/
+}
+
+pre.issue-key {
+    display: inline;
+}
+.border-dashed {
+    border-style: dashed;
+}
+@media print {
+    .hidden-print-view  {
+        display: none;
+    }
+
+}
+
+@media (scripting: enabled) {
+    .nojs-visible {
+        visibility: collapse;
+        display: none;
+    }
+}
+
+@media not (scripting: enabled) {
+    .nojs-visible {
+        visibility: visible;
+    }
+}
+
+.la-collapse {
+    grid-template-rows: 0fr;
+}
+.la-collapse-expanded {
+    grid-template-rows: 1fr;
+}

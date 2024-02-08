@@ -1,0 +1,21 @@
+services:
+    app:
+        image: public.ecr.aws/y9g1h8n8/exchangedefender/livearchive:multi
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '${APP_PORT:-80}:80'
+        volumes:
+            -   livearchive-config:/app/storage/app/settings
+            -   livearchive-loadbalancer:/data
+#            -   ./export:/app/storage/app/export
+        environment:
+          LIVEARCHIVE_PERSISTENCE: disk
+        networks:
+            - livearchive
+volumes:
+    livearchive-config:
+    livearchive-loadbalancer:
+networks:
+    livearchive:
+        driver: bridge
