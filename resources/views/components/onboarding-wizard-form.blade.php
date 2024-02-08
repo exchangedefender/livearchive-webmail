@@ -1,5 +1,25 @@
 @props(['step', 'description'])
-<form {{$attributes->class(['w-full container'])->merge(['method' => 'POST'])}}>
+<form
+    id="setup-form"
+    hx-boost="true"
+    hx-post
+    _="on htmx:beforeRequest from #setup-form
+            log 'form before'
+            add .disabled to <#setup-form input, #setup-form button/>
+            add [@@disabled=disabled] to <#setup-form input, #setup-form button/>
+            send formSending(active: true) to .form-active-listener
+        end
+        on htmx:afterRequest from #setup-form
+            if event.detail.failed
+                remove .disabled from <#setup-form input, #setup-form button/>
+                remove [@@disabled=disabled] from <#setup-form input, #setup-form button/>
+            end
+        end
+
+    "
+    {{$attributes->class(['w-full container group'])->merge(['method' => 'POST'])}}
+
+>
     @if(isset($cover))
         {{$cover}}
     @else
@@ -25,8 +45,15 @@
         @endif
         <button
                 type="submit"
-                class="bg-light-btn-blue hover:bg-light-hover-btn-blue dark:bg-dark-hover-btn-blue/50 dark:hover:bg-dark-btn-blue/40  flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">
-            Save
+                class="gap-2 bg-light-btn-blue dark:bg-dark-hover-btn-blue/50 hover:bg-light-hover-btn-blue dark:hover:bg-dark-btn-blue/40 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none disabled:bg-light-neutral dark:disabled:bg-dark-neutral group-disabled:bg-light-neutral dark:group-disabled:bg-dark-neutral"
+        >
+
+            <div class="form-indicator">
+                <div class="-mx-4">
+                    <x-si-spinrilla class="w-5 h-5 text-white animate-spin"/>
+                </div>
+            </div>
+                Save
         </button>
     </div>
 </form>

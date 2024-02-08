@@ -17,15 +17,21 @@
                             "w-7 h-7 flex justify-center items-center flex-shrink-0 rounded-full font-medium",
                             "bg-green-500 text-white dark:bg-green-700 dark:text-white" => $step !== $currentStep && $completed ,
                             "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-white" => $step !== $currentStep && !$completed,
-                            "bg-light-btn-blue text-white dark:bg-dark-btn-blue dark:text-white" => $step === $currentStep ,
-                            ])>
+                            "bg-light-btn-blue text-white dark:bg-dark-btn-blue dark:text-white form-active-listener" => $step === $currentStep ,
+                            ])
+                        @if($step === $currentStep)
+                            _="on formSending(active) if active add .animate-pulse to me end"
+                        @endif
+                    >
                         @if($step !== $currentStep && $completed)
                             <x-heroicon-o-check-circle class="w-5 h-5"/>
                         @else
                         {{$i + 1}}
                         @endif
                     </span>
-                    <span class="ms-2 block grow md:grow-0 text-sm font-medium @if($step === $currentStep) text-light-font dark:text-dark-font @else text-light-neutral dark:text-dark-neutral @endif">
+                    <span class="ms-2 block grow md:grow-0 text-sm font-medium @if($step === $currentStep) text-light-font dark:text-dark-font @else text-light-neutral dark:text-dark-neutral @endif"
+
+                    >
                                         {{$step->attribute('title')}}
                                     </span>
                 </div>

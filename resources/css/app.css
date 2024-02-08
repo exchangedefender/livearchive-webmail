@@ -38,11 +38,26 @@ pre.issue-key {
         visibility: collapse;
         display: none;
     }
+
+    .form-indicator{
+        opacity:0;
+        transition: opacity 500ms ease-in;
+    }
+    .htmx-request .form-indicator{
+        opacity:1
+    }
+    .htmx-request.form-indicator{
+        opacity:1
+    }
 }
 
 @media not (scripting: enabled) {
     .nojs-visible {
         visibility: visible;
+    }
+
+    .form-indicator{
+        opacity:0;
     }
 }
 
